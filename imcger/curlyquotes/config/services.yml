@@ -1,0 +1,13 @@
+services:
+    imcger.curlyquotes.core:
+        class: 'imcger\curlyquotes\core\fixer'
+        arguments:
+
+    imcger.curlyquotes.listener:
+        class: 'imcger\curlyquotes\event\main_listener'
+        arguments:
+            - '@user'
+            - '@request'
+            - '@imcger.curlyquotes.core'
+        tags:
+            - { name: 'event.listener' }
