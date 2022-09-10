@@ -53,7 +53,7 @@ class fixer
 
         // Fix simple cases
         return preg_replace(
-            '@(^|\s|\()"([^"]+)"@im',
+            '@(^|\s|\>|\()"([^"]+)"@im',
             '$1' . $this->opening . $this->openingSuffix . '$2' . $this->closingPrefix . $this->closing,
             $content
         );
