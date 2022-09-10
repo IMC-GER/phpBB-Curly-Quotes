@@ -30,12 +30,15 @@ class main_listener implements EventSubscriberInterface
 	/** @var \imcger\curlyquotes\core\fixer */
 	protected $fixer;
 
-	/** @var string user_language */
-	protected $user_language;
-
-	/** @var string local_language */
-	protected $local_language;
-
+	/**
+	 * Constructor for listener
+	 *
+	 * @param \phpbb\config\config				$config		phpBB config
+	 * @param \phpbb\request\request			$request	phpBB request
+	 * @param \imcger\curlyquotes\core\fixer	$fixer
+	 *
+	 * @access public
+	 */
 	public function __construct
 	(
 		\phpbb\user $user,
@@ -47,35 +50,43 @@ class main_listener implements EventSubscriberInterface
 		$this->request	= $request;
 		$this->fixer	= $fixer;
 
-		$this->user_language	 = substr($this->user->lang['USER_LANG'], 0, 2);
-		$this->local_language = $this->get_browser_lang($this->user_language);
+		// Get language for fixer
+		$user_language	 = substr($this->user->lang['USER_LANG'], 0, 2);
+		$local_language = $this->get_browser_lang($user_language);
 
-		$this->fixer->setLocale($this->local_language);
+		// Set local language in fixer
+		$this->fixer->setLocale($local_language);
 	}
 
+	/**
+	 * Returns an array of events the object is subscribed to
+	 *
+	 * @param	null
+	 * @return	array
+	 * @access	public
+	 */
 	public static function getSubscribedEvents()
 	{
 		return [
 			'core.modify_text_for_display_before' => 'modify_text_for_display_before',
-			'core.modify_text_for_display_after' => 'modify_text_for_display_after',
 		];
 	}
 
+	/**
+	 * Fix the quotes before display in post
+	 *
+	 * @param	object	$event	The event object
+	 * @return	null
+	 * @access	public
+	 */
 	public function modify_text_for_display_before($event)
 	{
 		$post_text = $event['text'];
 		$event['text'] = $this->fixer->fix($post_text);
 	}
 
-	public function modify_text_for_display_after($event)
-	{
-		$post_text = $event['text'];
-		$event['text'] = $post_text;
-	}
-
-
 	/**
-	 * Check if Browser language has a country code
+	 * Check if Browser has the board language with country code
 	 *
 	 * @param $default_lang	Board language
 	 * @return				Browser language or default language
@@ -102,27 +113,4 @@ class main_listener implements EventSubscriberInterface
 
 		return !empty($local[0]) ? $local[0] : $default_lang;
 	}
-
-	/**
-	 * Logger for debugging
-	 *
-	 * @param $err	Message to log
-	 * @param $verbosity	0: log as-is, 1: use print_r(), 2: use var_dump()
-	 */
-	public function dbg_log($err, $verbosity = 0)
-	{
-		$log_file = 'a_log.txt';
-		if ($verbosity == 1)
-		{
-			$err = print_r($err, true);
-		}
-		else if ($verbosity == 2)
-		{
-			ob_start();
-			var_dump($err);
-			$err = ob_get_clean();
-		}
-		error_log ($err . "\n", 3, $log_file);
-	}
-
 }

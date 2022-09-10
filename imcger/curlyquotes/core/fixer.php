@@ -7,6 +7,7 @@
  * and is licensed under the MIT license.
  *
  * https://en.wikipedia.org/wiki/Quotation_mark
+ * https://www.virtualsystem.de/browsersprachen/
  */
 
 namespace imcger\curlyquotes\core;
@@ -32,6 +33,8 @@ class fixer
 	public const RAQUO	= '»'; // &raquo;
 	public const LSAQUO = '‹'; // &lsaquo;
 	public const RSAQUO = '›'; // &rsaquo;
+	public const PRIME	= '″'; // &Prime;
+	public const SPRIME = '′'; // &prime;
 	public const TIMES	= '×'; // &times;
 	public const NDASH	= '–'; // &ndash; or &#x2013;
 	public const MDASH	= '—'; // &mdash; or &#x2014;
@@ -58,16 +61,39 @@ class fixer
 			'@([^\s][a-z0-9])\'([a-z])@im',		// Apostrophe
 			'@(^|\s|\>|\()"([^"]+)"@im',		// Double Quotes
 			'@(^|\s|\>|\()\'([^\']+)\'@im',		// Single Quotes
+			'@([^\d\s]+)[' . self::ALL_SPACES . ']*(,)[' . self::ALL_SPACES . ']*@mu', // No space before comma (,)
 		];
 
 		$replacement = [
 			'$1' . self::RSQUO . '$2',
 			'$1' . $this->dopening . $this->openingSuffix . '$2' . $this->closingPrefix . $this->dclosing,
 			'$1' . $this->sopening . $this->openingSuffix . '$2' . $this->closingPrefix . $this->sclosing,
+			'$1$2 ',
 		];
 
         // Fix simple cases
-        return preg_replace($pattern, $replacement, $content);
+        $content = preg_replace($pattern, $replacement, $content);
+
+		// Replace single quotes with prime
+		$content = str_replace("'", self::SPRIME, $content);
+
+		// Replace double quotes with Prime
+		$prime_pos = strpos($content, '"', 0);
+		while ($prime_pos)
+		{
+			// Don't replace quotes between <…>
+			$stag = strpos($content, '<', $prime_pos);
+			$btag = strpos($content, '>', $prime_pos);
+
+			if ($stag === false || ($stag < $btag))
+			{
+				$content = substr_replace($content, self::PRIME, $prime_pos, 1);
+			}
+
+			$prime_pos = strpos($content, '"', $prime_pos+1);
+		}
+
+		return $content;
     }
 
 	/**
