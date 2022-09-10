@@ -39,24 +39,35 @@ class fixer
 	public const REG	= '®'; // &reg;
 	public const COPY	= '©'; // &copy;
 
-    protected $opening;
+    protected $dopening;
+    protected $sopening;
     protected $openingSuffix = '';
-    protected $closing;
+    protected $dclosing;
+    protected $sclosing;
     protected $closingPrefix = '';
 
     public function fix($content)
     {
-        if (!$this->opening || !$this->closing)
+		// Break when locale not set
+        if (!$this->dopening || !$this->dclosing)
 		{
              return $content;
         }
 
+		$pattern = [
+			'@([^\s][a-z0-9])\'([a-z])@im',		// Apostrophe
+			'@(^|\s|\>|\()"([^"]+)"@im',		// Double Quotes
+			'@(^|\s|\>|\()\'([^\']+)\'@im',		// Single Quotes
+		];
+
+		$replacement = [
+			'$1' . self::RSQUO . '$2',
+			'$1' . $this->dopening . $this->openingSuffix . '$2' . $this->closingPrefix . $this->dclosing,
+			'$1' . $this->sopening . $this->openingSuffix . '$2' . $this->closingPrefix . $this->sclosing,
+		];
+
         // Fix simple cases
-        return preg_replace(
-            '@(^|\s|\>|\()"([^"]+)"@im',
-            '$1' . $this->opening . $this->openingSuffix . '$2' . $this->closingPrefix . $this->closing,
-            $content
-        );
+        return preg_replace($pattern, $replacement, $content);
     }
 
 	/**
@@ -70,17 +81,21 @@ class fixer
 		switch (strtolower($locale)) {
 			// “…”
 			case 'pt-br':
-				$this->opening = self::LDQUO;
+				$this->dopening = self::LDQUO;
+				$this->sopening = self::LSQUO;
 				$this->openingSuffix = '';
-				$this->closing = self::RDQUO;
+				$this->dclosing = self::RDQUO;
+				$this->sclosing = self::RSQUO;
 				$this->closingPrefix = '';
 
 				return;
 			// «…»
 			case 'de-ch':
-				$this->opening = self::LAQUO;
+				$this->dopening = self::LAQUO;
+				$this->sopening = self::LSAQUO;
 				$this->openingSuffix = '';
-				$this->closing = self::RAQUO;
+				$this->dclosing = self::RAQUO;
+				$this->sclosing = self::RSAQUO;
 				$this->closingPrefix = '';
 
 				return;
@@ -92,9 +107,11 @@ class fixer
 		switch ($short) {
 			// « … »
 			case 'fr':
-				$this->opening = self::LAQUO;
+				$this->dopening = self::LAQUO;
+				$this->sopening = self::LSAQUO;
 				$this->openingSuffix = self::NO_BREAK_THIN_SPACE;
-				$this->closing = self::RAQUO;
+				$this->dclosing = self::RAQUO;
+				$this->sclosing = self::RSAQUO;
 				$this->closingPrefix = self::NO_BREAK_THIN_SPACE;
 
 				break;
@@ -114,9 +131,11 @@ class fixer
 			case 'ru':
 			case 'es':
 			case 'uk':
-				$this->opening = self::LAQUO;
+				$this->dopening = self::LAQUO;
+				$this->sopening = self::LSAQUO;
 				$this->openingSuffix = '';
-				$this->closing = self::RAQUO;
+				$this->dclosing = self::RAQUO;
+				$this->sclosing = self::RSAQUO;
 				$this->closingPrefix = '';
 
 				break;
@@ -132,9 +151,11 @@ class fixer
 			case 'sk':
 			case 'sl':
 			case 'wen':
-				$this->opening = self::BDQUO;
+				$this->dopening = self::BDQUO;
+				$this->sopening = self::SBQUO;
 				$this->openingSuffix = '';
-				$this->closing = self::LDQUO;
+				$this->dclosing = self::LDQUO;
+				$this->sclosing = self::LSQUO;
 				$this->closingPrefix = '';
 
 				break;
@@ -152,9 +173,11 @@ class fixer
 			case 'th':
 			case 'tr':
 			case 'vi':
-				$this->opening = self::LDQUO;
+				$this->dopening = self::LDQUO;
+				$this->sopening = self::LSQUO;
 				$this->openingSuffix = '';
-				$this->closing = self::RDQUO;
+				$this->dclosing = self::RDQUO;
+				$this->sclosing = self::RSQUO;
 				$this->closingPrefix = '';
 
 				break;
@@ -162,9 +185,11 @@ class fixer
 			case 'fi':
 			case 'sv':
 			case 'bs':
-				$this->opening = self::RDQUO;
+				$this->dopening = self::RDQUO;
+				$this->sopening = self::RSQUO;
 				$this->openingSuffix = '';
-				$this->closing = self::RDQUO;
+				$this->dclosing = self::RDQUO;
+				$this->sclosing = self::RSQUO;
 				$this->closingPrefix = '';
 
 				break;
