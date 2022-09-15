@@ -1,4 +1,13 @@
 services:
+    imcger.curlyquotes.admin.controller:
+        class: 'imcger\curlyquotes\controller\admin_controller'
+        arguments:
+            - '@config'
+            - '@template'
+            - '@language'
+            - '@request'
+            - '@dbal.conn'
+
     imcger.curlyquotes.core:
         class: 'imcger\curlyquotes\core\fixer'
         arguments:
@@ -6,6 +15,7 @@ services:
     imcger.curlyquotes.listener:
         class: 'imcger\curlyquotes\event\main_listener'
         arguments:
+            - '@config'
             - '@user'
             - '@request'
             - '@imcger.curlyquotes.core'
