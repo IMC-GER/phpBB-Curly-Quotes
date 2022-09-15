@@ -21,6 +21,10 @@ None settings needed.
 
 ## Changelog
 
+### v1.0.0-b1 (15-09-2022)
+- ACP Panel added
+- Code changes
+
 ### v0.2.0-dev (12-09-2022)
 - Replace remaining quotes with prime symbole
 
