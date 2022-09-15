@@ -62,6 +62,12 @@ class main_listener implements EventSubscriberInterface
 		$lang_settings = $this->config['imcger_curlyquotes_lang_settings'];
 		$lang_set = explode(';', $lang_settings);
 
+		// Browser language without country code if no parameters set
+		if (!str_contains($lang_settings, $local_language))
+		{
+			$local_language = $this->fixer->getLanguageFromLocale($local_language);
+		}
+
 		foreach ($lang_set as $value)
 		{
 			$lang = explode(',', $value);

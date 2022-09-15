@@ -39,6 +39,10 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, [
-	'IMCGER_REQUIRE_PHPBB' => 'Diese Erweiterung benötigt eine phpBB Version gleich oder grösser 3.2.0 und kleiner 4.0.0',
-	'IMCGER_REQUIRE_PHP'	  => 'Diese Erweiterung benötigt eine php Version gleich oder grösser 8.0 und kleiner 8.2.',
+	'ACP_CURLYQUOTES_TITLE' => 'Curly Quotes',
+	'ACP_CURLYQUOTES_SETTINGS' => 'Einstellungen',
+	'ACP_CURLYQUOTES_SETTING_SAVED' => 'Curly Quotes Einstellungen erfolgreich gespeichert.',
+
+	'IMCGER_REQUIRE_PHPBB'	=> 'Diese Erweiterung benötigt eine phpBB Version gleich oder grösser 3.2.0 und kleiner 4.0.0',
+	'IMCGER_REQUIRE_PHP'	=> 'Diese Erweiterung benötigt eine php Version gleich oder grösser 8.0 und kleiner 8.2.',
 ]);
