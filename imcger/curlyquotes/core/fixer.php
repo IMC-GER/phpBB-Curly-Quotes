@@ -43,16 +43,18 @@ class fixer
 	public const COPY	= '©'; // &copy;
 
     protected $dopening;
-    protected $sopening;
-    protected $openingSuffix = '';
     protected $dclosing;
+    protected $dopeningSuffix = '';
+    protected $dclosingPrefix = '';
+    protected $sopening;
     protected $sclosing;
-    protected $closingPrefix = '';
+    protected $sopeningSuffix = '';
+    protected $sclosingPrefix = '';
 
     public function fix($content, $set_prime)
     {
 		// Break when locale not set
-        if (!$this->dopening || !$this->dclosing)
+        if (!$this->dopening || !$this->dclosing || !$this->sopening || !$this->sclosing)
 		{
              return $content;
         }
@@ -66,8 +68,8 @@ class fixer
 
 		$replacement = [
 			'$1' . self::RSQUO . '$2',
-			'$1' . $this->dopening . $this->openingSuffix . '$2' . $this->closingPrefix . $this->dclosing,
-			'$1' . $this->sopening . $this->openingSuffix . '$2' . $this->closingPrefix . $this->sclosing,
+			'$1' . $this->dopening . $this->dopeningSuffix . '$2' . $this->dclosingPrefix . $this->dclosing,
+			'$1' . $this->sopening . $this->sopeningSuffix . '$2' . $this->sclosingPrefix . $this->sclosing,
 			'$1$2 ',
 		];
 
@@ -106,120 +108,104 @@ class fixer
 	 */
 	public function setLocale($locale)
 	{
-		// Handle from locale + country
-		switch (strtolower($locale[0])) {
+		switch ($locale[1]) {
 			// “…”
-			case 'pt-br':
+			case 1:
 				$this->dopening = self::LDQUO;
-				$this->sopening = self::LSQUO;
-				$this->openingSuffix = '';
 				$this->dclosing = self::RDQUO;
-				$this->sclosing = self::RSQUO;
-				$this->closingPrefix = '';
-
-				return;
-			// «…»
-			case 'de-ch':
-				$this->dopening = self::LAQUO;
-				$this->sopening = self::LSAQUO;
-				$this->openingSuffix = '';
-				$this->dclosing = self::RAQUO;
-				$this->sclosing = self::RSAQUO;
-				$this->closingPrefix = '';
-
-				return;
-		}
-
-		// Handle from locale only
-		$short = $this->getLanguageFromLocale($locale[0]);
-
-		switch ($short) {
-			// « … »
-			case 'fr':
-				$this->dopening = self::LAQUO;
-				$this->sopening = self::LSAQUO;
-				$this->openingSuffix = self::NO_BREAK_THIN_SPACE;
-				$this->dclosing = self::RAQUO;
-				$this->sclosing = self::RSAQUO;
-				$this->closingPrefix = self::NO_BREAK_THIN_SPACE;
-
-				break;
-			// «…»
-			case 'hy':
-			case 'az':
-			case 'hz':
-			case 'eu':
-			case 'be':
-			case 'ca':
-			case 'el':
-			case 'it':
-			case 'no':
-			case 'fa':
-			case 'lv':
-			case 'pt':
-			case 'ru':
-			case 'es':
-			case 'uk':
-				$this->dopening = self::LAQUO;
-				$this->sopening = self::LSAQUO;
-				$this->openingSuffix = '';
-				$this->dclosing = self::RAQUO;
-				$this->sclosing = self::RSAQUO;
-				$this->closingPrefix = '';
-
-				break;
-			// „…“
-			case 'de':
-			case 'ka':
-			case 'cs':
-			case 'et':
-			case 'is':
-			case 'lt':
-			case 'mk':
-			case 'ro':
-			case 'sk':
-			case 'sl':
-			case 'wen':
-				$this->dopening = self::BDQUO;
-				$this->sopening = self::SBQUO;
-				$this->openingSuffix = '';
-				$this->dclosing = self::LDQUO;
-				$this->sclosing = self::LSQUO;
-				$this->closingPrefix = '';
-
-				break;
-			// “…”
-			case 'en':
-			case 'us':
-			case 'gb':
-			case 'af':
-			case 'ar':
-			case 'eo':
-			case 'id':
-			case 'ga':
-			case 'ko':
-			case 'br':
-			case 'th':
-			case 'tr':
-			case 'vi':
-				$this->dopening = self::LDQUO;
-				$this->sopening = self::LSQUO;
-				$this->openingSuffix = '';
-				$this->dclosing = self::RDQUO;
-				$this->sclosing = self::RSQUO;
-				$this->closingPrefix = '';
+				$this->dopeningSuffix = '';
+				$this->dclosingPrefix = '';
 
 				break;
 			// ”…”
-			case 'fi':
-			case 'sv':
-			case 'bs':
+			case 2:
 				$this->dopening = self::RDQUO;
-				$this->sopening = self::RSQUO;
-				$this->openingSuffix = '';
 				$this->dclosing = self::RDQUO;
+				$this->dopeningSuffix = '';
+				$this->dclosingPrefix = '';
+
+				break;
+			// „…“
+			case 3:
+				$this->dopening = self::BDQUO;
+				$this->dclosing = self::LDQUO;
+				$this->dopeningSuffix = '';
+				$this->dclosingPrefix = '';
+
+				break;
+			// «…»
+			case 4:
+				$this->dopening = self::LAQUO;
+				$this->dclosing = self::RAQUO;
+				$this->dopeningSuffix = '';
+				$this->dclosingPrefix = '';
+
+				break;
+			// « … »
+			case 5:
+				$this->dopening = self::LAQUO;
+				$this->dclosing = self::RAQUO;
+				$this->dopeningSuffix = self::NO_BREAK_THIN_SPACE;
+				$this->dclosingPrefix = self::NO_BREAK_THIN_SPACE;
+
+				break;
+			// »…«
+			case 6:
+				$this->dopening = self::RAQUO;
+				$this->dclosing = self::LAQUO;
+				$this->dopeningSuffix = '';
+				$this->dclosingPrefix = '';
+
+				break;
+		}
+
+		switch ($locale[2]) {
+			// ‘…’
+			case 1:
+				$this->sopening = self::LSQUO;
 				$this->sclosing = self::RSQUO;
-				$this->closingPrefix = '';
+				$this->sopeningSuffix = '';
+				$this->sclosingPrefix = '';
+
+				break;
+			// ’…’
+			case 2:
+				$this->sopening = self::RSQUO;
+				$this->sclosing = self::RSQUO;
+				$this->sopeningSuffix = '';
+				$this->sclosingPrefix = '';
+
+				break;
+			// ‚…‘
+			case 3:
+				$this->sopening = self::SBQUO;
+				$this->sclosing = self::LSQUO;
+				$this->sopeningSuffix = '';
+				$this->sclosingPrefix = '';
+
+				break;
+			// ‹…›
+			case 4:
+				$this->sopening = self::LSAQUO;
+				$this->sclosing = self::RSAQUO;
+				$this->sopeningSuffix = '';
+				$this->sclosingPrefix = '';
+
+				break;
+			// ‹ … ›
+			case 5:
+				$this->sopening = self::LSAQUO;
+				$this->sclosing = self::RSAQUO;
+				$this->sopeningSuffix = self::NO_BREAK_THIN_SPACE;
+				$this->sclosingPrefix = self::NO_BREAK_THIN_SPACE;
+
+				break;
+			// ›…‹
+			case 6:
+				$this->sopening = self::RSAQUO;
+				$this->sclosing = self::LSAQUO;
+				$this->sopeningSuffix = '';
+				$this->sclosingPrefix = '';
 
 				break;
 		}

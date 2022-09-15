@@ -13,12 +13,16 @@ Replaces quotation marks with curly quotes.
 Copy the extension to `phpBB3/ext/imcger/curlyquotes`
 
 Go to "ACP" > "Customise" > "Extensions Manager" and enable the "phpBB Curly Quotes" extension.
+Go to "ACP" > "Extension" > "Curly Quotes Settings" and set the quote style for your languages.
 
 ## Settings
 
 None settings needed.
 
 ## Changelog
+
+### v0.2.0-dev (12-09-2022)
+- Replace remaining quotes with prime symbole
 
 ### v0.1.0-dev (10-09-2022)
 
