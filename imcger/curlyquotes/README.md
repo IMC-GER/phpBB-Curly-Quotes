@@ -16,8 +16,8 @@ Go to "ACP" > "Customise" > "Extensions Manager" and enable the "phpBB Curly Quo
 Go to "ACP" > "Extension" > "Curly Quotes Settings" and set the quote style for your languages.
 
 ## Settings
-
-None settings needed.
+- Quotation marks styles
+- Replace remaining quotes with Prime characters
 
 ## Changelog
 

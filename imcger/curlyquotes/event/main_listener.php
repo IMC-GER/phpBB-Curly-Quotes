@@ -56,7 +56,7 @@ class main_listener implements EventSubscriberInterface
 		$this->fixer	= $fixer;
 
 		// Get language for fixer
-		$user_language	 = substr($this->user->lang['USER_LANG'], 0, 2);
+		$user_language	 = $this->fixer->getLanguageFromLocale($this->user->lang['USER_LANG']);
 		$local_language = $this->get_browser_lang($user_language);
 
 		$lang_settings = $this->config['imcger_curlyquotes_lang_settings'];

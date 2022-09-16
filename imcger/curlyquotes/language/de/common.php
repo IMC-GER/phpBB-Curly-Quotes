@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * External Links
+ * Curly Quotes
  * An extension for the phpBB Forum Software package.
  *
  * @copyright (c) 2022, Thorsten Ahlers
