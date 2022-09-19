@@ -21,6 +21,12 @@ Go to "ACP" > "Extension" > "Curly Quotes Settings" and set the quote style for 
 
 ## Changelog
 
+### v1.0.0-b3 (19-09-2022)
+- Fixed language setting
+
+### v1.0.0-b2 (16-09-2022)
+- Code changes
+
 ### v1.0.0-b1 (15-09-2022)
 - ACP Panel added
 - Code changes

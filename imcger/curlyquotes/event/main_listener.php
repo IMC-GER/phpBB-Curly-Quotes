@@ -59,7 +59,7 @@ class main_listener implements EventSubscriberInterface
 		$user_language	 = $this->fixer->getLanguageFromLocale($this->user->lang['USER_LANG']);
 		$local_language = $this->get_browser_lang($user_language);
 
-		$lang_settings = $this->config['imcger_curlyquotes_lang_settings'];
+		$lang_settings = strtolower($this->config['imcger_curlyquotes_lang_settings']);
 		$lang_set = explode(';', $lang_settings);
 
 		// Browser language without country code if no parameters set
