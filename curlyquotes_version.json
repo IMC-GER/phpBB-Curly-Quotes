@@ -1,7 +1,7 @@
 {
     "stable": {
         "1.4": {
-            "current": "1.0.0-b4",
+            "current": "1.0.0",
             "announcement": "",
             "download": "https://github.com/IMC-GER/phpBB-Curly-Quotes/tags",
             "eol": null,
