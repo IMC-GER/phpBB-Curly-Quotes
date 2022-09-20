@@ -22,4 +22,10 @@
 				"phpbb/phpbb": ">=3.2.0,<4.0.0@dev"
 				}
 			}
+		"version-check": {
+			"host": "raw.githubusercontent.com",
+			"directory": "/IMC-GER/IMC-GER/phpBB-Curly-Quotes/master",
+			"filename": "curlyquotes_version.json",
+			"ssl": true
+		}
 }

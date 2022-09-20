@@ -58,20 +58,19 @@ const inst_lang = "{{ IMCGER_CURLYQUOTES_INSTALL_LANG|e('js') }}";
 
 function initForm() {
 	let install_lang = inst_lang.split(";");
-	let i, j, imcger_langset;
+	let i, j, imcger_langset, clone;
 	
 	// Create fields for installed languages
 	for (i = 0;  i < install_lang.length; i++) {
 		imcger_langset = document.getElementsByClassName("imcger_langset");
-		let clone = imcger_langset[imcger_langset.length-1].cloneNode(true);
 		let lang = install_lang[i].split(",");
 		let lang_name = "<span>" + lang[1] + "</span><br>";
 		
-		imcger_langset[i].insertAdjacentElement("beforebegin", clone);
+		clone = addLang("beforebegin");
 		
 		clone.children[0].value = lang[0].split("_")[0]; // Separate because of format de_x_sie
 		clone.children[0].setAttribute("readonly", "true");
-		imcger_langset[i].insertAdjacentHTML("afterbegin", lang_name);
+		clone.insertAdjacentHTML("afterbegin", lang_name);
 	}
 	imcger_langset[imcger_langset.length-1].insertAdjacentHTML("beforebegin", "<br>");
 
@@ -90,13 +89,11 @@ function initForm() {
 		}
 		// Create and set fields for supplementary language settings
 		else {
-			addLang("afterend");
+			clone = addLang("beforebegin");
 			
-			let langset = document.getElementsByClassName("imcger_langset");
-			
-			langset[langset.length-2].children[0].value = lang_set[0];
-			langset[langset.length-2].children[1].value = lang_set[1];
-			langset[langset.length-2].children[2].value = lang_set[2];
+			clone.children[0].value = lang_set[0];
+			clone.children[1].value = lang_set[1];
+			clone.children[2].value = lang_set[2];
 		}
 	}
 }
@@ -108,9 +105,8 @@ function addLang(insert_pos) {
 	
 	// Create new element for language settings
 	imcger_langset[imcger_langsetlength-1].insertAdjacentElement(insert_pos, clone);
-
-	imcger_langset = document.getElementsByName("lang_name");
-	clone.children[0].value = "";
+	
+	return clone;
 }
 
 function setLangSetting() {
@@ -124,7 +120,7 @@ function setLangSetting() {
 	// Read form fields and write them into variable
 	for (i = 0;  i < langset.length; i++) {
 		if (lang_name[i].value.length >= 2) {
-			lang_settings = lang_settings + lang_name[i].value + "," + double_quote[i].value + "," + single_quote[i].value + ";";
+			lang_settings = lang_settings + lang_name[i].value.trim() + "," + double_quote[i].value + "," + single_quote[i].value + ";";
 		}
 	}
 	
