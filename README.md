@@ -4,6 +4,10 @@
 
 Replaces quotation marks with curly quotes.
 
+## Screenshots
+- [Post view difference](https://raw.githubusercontent.com/IMC-GER/images/main/screenshots/curlyquotes/de/post.jpg?raw=true)
+- [Administrations-Bereich](https://raw.githubusercontent.com/IMC-GER/images/main/screenshots/curlyquotes/de/acp_settings.jpg?raw=true)
+
 ## Requirements
 - php 8.0 or higher
 - phpBB 3.2.0 or higher
