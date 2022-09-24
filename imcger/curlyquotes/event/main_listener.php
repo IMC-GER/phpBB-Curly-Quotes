@@ -106,7 +106,37 @@ class main_listener implements EventSubscriberInterface
 	public function modify_text_for_display_before($event)
 	{
 		$post_text = $event['text'];
-		$event['text'] = $this->fixer->fix($post_text, $this->config['imcger_curlyquotes_sets_prime']);
+
+		// Check if code in text
+		if (str_contains($post_text, '<CODE>'))
+		{
+			$offset = 0;
+			$new_post_text = '';
+
+			// Find code in post
+			while (preg_match('#(<CODE>)(.*?)(</CODE>)#i', $post_text, $match, PREG_OFFSET_CAPTURE, $offset))
+			{
+				// Fix string before code
+				$str2fix = substr($post_text, $offset, $match[0][1] - $offset);
+				$new_post_text .= $this->fixer->fix($str2fix, $this->config['imcger_curlyquotes_sets_prime']);
+
+				// Add code
+				$new_post_text .= $match[0][0];
+
+				// New start posion to find next code
+				$offset = $match[3][1] + 7;
+			}
+
+			// Fix string behind code
+			$str2fix = substr($post_text, $offset);
+			$new_post_text .= $this->fixer->fix($str2fix, $this->config['imcger_curlyquotes_sets_prime']);
+
+			$event['text'] = $new_post_text;
+		}
+		else
+		{
+			$event['text'] = $this->fixer->fix($post_text, $this->config['imcger_curlyquotes_sets_prime']);
+		}
 	}
 
 	/**

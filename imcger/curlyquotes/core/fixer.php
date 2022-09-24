@@ -42,22 +42,22 @@ class fixer
 	public const REG	= '®'; // &reg;
 	public const COPY	= '©'; // &copy;
 
-    protected $dopening;
-    protected $dclosing;
-    protected $dopeningSuffix = '';
-    protected $dclosingPrefix = '';
-    protected $sopening;
-    protected $sclosing;
-    protected $sopeningSuffix = '';
-    protected $sclosingPrefix = '';
+	protected $dopening;
+	protected $dclosing;
+	protected $dopeningSuffix = '';
+	protected $dclosingPrefix = '';
+	protected $sopening;
+	protected $sclosing;
+	protected $sopeningSuffix = '';
+	protected $sclosingPrefix = '';
 
-    public function fix($content, $set_prime)
-    {
+	public function fix($content, $set_prime)
+	{
 		// Break when locale not set
-        if (!$this->dopening || !$this->dclosing || !$this->sopening || !$this->sclosing)
+		if (!$this->dopening || !$this->dclosing || !$this->sopening || !$this->sclosing)
 		{
-             return $content;
-        }
+			 return $content;
+		}
 
 		$pattern = [
 			'@([^\s][a-z0-9])\'([a-z])@im',		// Apostrophe
@@ -73,8 +73,8 @@ class fixer
 			'$1$2 ',
 		];
 
-        // Fix simple cases
-        $content = preg_replace($pattern, $replacement, $content);
+		// Fix simple cases
+		$content = preg_replace($pattern, $replacement, $content);
 
 		if ($set_prime)
 		{
@@ -99,7 +99,7 @@ class fixer
 		}
 
 		return $content;
-    }
+	}
 
 	/**
 	 * Default configuration for supported lang.
@@ -108,7 +108,8 @@ class fixer
 	 */
 	public function setLocale($locale)
 	{
-		switch ($locale[1]) {
+		switch ($locale[1])
+		{
 			// “…”
 			case 1:
 				$this->dopening = self::LDQUO;
@@ -159,7 +160,8 @@ class fixer
 				break;
 		}
 
-		switch ($locale[2]) {
+		switch ($locale[2])
+		{
 			// ‘…’
 			case 1:
 				$this->sopening = self::LSQUO;
@@ -211,22 +213,23 @@ class fixer
 		}
 	}
 
-    /**
-     * Get language part of a Locale string (fr_FR => fr).
-     *
-     * @param $locale
-     *
-     * @return string
-     */
-    public static function getLanguageFromLocale($locale)
-    {
-        if (strpos($locale, '-')) {
-            $parts = explode('-', $locale);
+	/**
+	 * Get language part of a Locale string (fr_FR => fr).
+	 *
+	 * @param $locale
+	 *
+	 * @return string
+	 */
+	public static function getLanguageFromLocale($locale)
+	{
+		if (strpos($locale, '-'))
+		{
+			$parts = explode('-', $locale);
 
-            return strtolower($parts[0]);
-        }
+			return strtolower($parts[0]);
+		}
 
-        return $locale;
-    }
+		return $locale;
+	}
 
 }
