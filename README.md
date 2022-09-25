@@ -25,6 +25,9 @@ Go to "ACP" > "Extension" > "Curly Quotes Settings" and set the quote style for 
 
 ## Changelog
 
+### v1.0.1 (25-09-2022)
+- Fixed no apostrophe if starting string has only one character 
+
 ### v1.0.0 (24-09-2022)
 - Fixed replace quotes in code
 

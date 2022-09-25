@@ -1,8 +1,8 @@
 {
     "stable": {
         "1.0": {
-            "current": "1.0.0",
-            "announcement": "",
+            "current": "1.0.1",
+            "announcement": "https://www.phpbb.de/community/viewtopic.php?t=246397",
             "download": "https://github.com/IMC-GER/phpBB-Curly-Quotes/tags",
             "eol": null,
             "security": false
