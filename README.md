@@ -29,7 +29,7 @@ Go to "ACP" > "Extension" > "Curly Quotes Settings" and set the quote style for 
 - Fixed Error 500 wenn user only set the beginning quotation mark
 
 ### v1.0.1 (25-09-2022)
-- Fixed no apostrophe if starting string has only one character#
+- Fixed no apostrophe if starting string has only one character
 
 ### v1.0.0 (24-09-2022)
 - Fixed replace quotation marks in BBCode "code"
