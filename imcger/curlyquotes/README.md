@@ -26,13 +26,13 @@ Go to "ACP" > "Extension" > "Curly Quotes Settings" and set the quote style for 
 ## Changelog
 
 ### v1.0.2 (25-09-2022)
-- Fixed Error 500 wenn user only set the beginning quote 
+- Fixed Error 500 wenn user only set the beginning quotation mark
 
 ### v1.0.1 (25-09-2022)
-- Fixed no apostrophe if starting string has only one character 
+- Fixed no apostrophe if starting string has only one character#
 
 ### v1.0.0 (24-09-2022)
-- Fixed replace quotes in code
+- Fixed replace quotation marks in BBCode "code"
 
 ### v1.0.0-b4 (19-09-2022)
 - Code changes
