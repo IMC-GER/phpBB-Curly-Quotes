@@ -3,8 +3,8 @@
 	"type": "phpbb-extension",
 	"description": "Replaces quotation marks with curly quotes.",
 	"homepage": "",
-	"version": "1.0.2",
-	"time": "2022-09-25",
+	"version": "1.0.3",
+	"time": "2022-10-02",
 	"license": "GPL-2.0-only",
 	"authors": [
 				{

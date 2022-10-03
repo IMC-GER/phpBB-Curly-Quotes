@@ -25,6 +25,9 @@ Go to "ACP" > "Extension" > "Curly Quotes Settings" and set the quote style for 
 
 ## Changelog
 
+### v1.0.3 (02-10-2022)
+- Fixed don't show attachment in post
+
 ### v1.0.2 (25-09-2022)
 - Fixed Error 500 wenn user only set the beginning quotation mark
 
@@ -58,7 +61,7 @@ Go to "ACP" > "Extension" > "Curly Quotes Settings" and set the quote style for 
 - Click the `Disable` link for Curly Quotes.
 - Delete the `curlyquotes` folder from `phpBB3/ext/imcger/`.
 - Install the new Curly Quotes extension.
- 
+
 ## Uninstallation
 - Navigate in the ACP to `Customise -> Manage extensions`.
 - Click the `Disable` link for Curly Quotes.

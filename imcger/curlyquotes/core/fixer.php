@@ -61,8 +61,8 @@ class fixer
 
 		$pattern = [
 			'@([a-z0-9])\'([a-z])@im',			// Apostrophe
-			'@(^|\s|\>|\()"([^\<]|[^"]+)"@im',		// Double Quotes
-			'@(^|\s|\>|\()\'([^\']+)\'@im',		// Single Quotes
+			'@(^|\s|\>|\()"([^"^\<]+)"@im',		// Double Quotes
+			'@(^|\s|\>|\()\'([^\'^\<]+)\'@im',	// Single Quotes
 			'@([^\d\s]+)[' . self::ALL_SPACES . ']*(,)[' . self::ALL_SPACES . ']*@mu', // No space before comma (,)
 		];
 
