@@ -2,25 +2,24 @@
 	"name": "imcger/curlyquotes",
 	"type": "phpbb-extension",
 	"description": "Replaces quotation marks with curly quotes.",
-	"homepage": "",
+	"homepage": "https://github.com/IMC-GER/phpBB-Curly-Quotes",
 	"version": "1.0.3",
 	"time": "2022-10-02",
 	"license": "GPL-2.0-only",
-	"authors": [
-				{
-				"name": "Thorsten Ahlers",
-				"homepage": "",
-				"role": "Developer"
-				}
-				],
+	"authors": [{
+			"name": "Thorsten Ahlers",
+			"homepage": "https://github.com/IMC-GER",
+			"role": "Developer"
+		}
+	],
 	"require": {
-				"php": ">=8.0"
-			},
+		"php": ">=8.0"
+	},
 	"extra": {
-				"display-name": "Curly Quotes",
-				"soft-require": {
-				"phpbb/phpbb": ">=3.2.0,<4.0.0@dev"
-				},
+		"display-name": "Curly Quotes",
+		"soft-require": {
+			"phpbb/phpbb": ">=3.2.0,<4.0.0@dev"
+		},
 		"version-check": {
 			"host": "raw.githubusercontent.com",
 			"directory": "/IMC-GER/phpBB-Curly-Quotes/main",
