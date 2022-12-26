@@ -25,6 +25,12 @@ Go to "ACP" > "Extension" > "Curly Quotes Settings" and set the quote style for 
 
 ## Changelog
 
+### v1.1.0 (26-12-2022)
+- Added suport for coordinates and length specifications ft./in.
+- Added replace quotes in preview
+- Changed PHP max to v8.2
+- Update check system requirement
+
 ### v1.0.3 (02-10-2022)
 - Fixed don't show attachment in post
 

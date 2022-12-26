@@ -6,6 +6,8 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
+ * Copyright (c) 2022, Customizations for phpBB by Thorsten Ahlers
+ *
  * https://en.wikipedia.org/wiki/Quotation_mark
  * https://www.virtualsystem.de/browsersprachen/
  */
@@ -21,26 +23,26 @@ class fixer
 	public const ALL_SPACES			 = "\xE2\x80\xAF|\xC2\xAD|\xC2\xA0|\\s"; // All supported spaces, used in regexps. Better than \s
 	public const NO_BREAK_THIN_SPACE = "\xE2\x80\xAF"; // &#8239;
 	public const NO_BREAK_SPACE		 = "\xC2\xA0"; // &#160;
-	public const SHY	  = "\xC2\xAD"; // &shy;
-	public const ELLIPSIS = '…'; // &hellip;
-	public const LDQUO	= '“'; // &ldquo; or &#8220;
-	public const RDQUO	= '”'; // &rdquo; or &#8221;
-	public const BDQUO	= '„'; // &bdquo; or &#8222;
-	public const LSQUO	= '‘'; // &lsquo;
-	public const RSQUO	= '’'; // &rsquo;
-	public const SBQUO	= '‚'; // &sbquo;
-	public const LAQUO	= '«'; // &laquo;
-	public const RAQUO	= '»'; // &raquo;
-	public const LSAQUO = '‹'; // &lsaquo;
-	public const RSAQUO = '›'; // &rsaquo;
-	public const PRIME	= '″'; // &Prime;
-	public const SPRIME = '′'; // &prime;
-	public const TIMES	= '×'; // &times;
-	public const NDASH	= '–'; // &ndash; or &#x2013;
-	public const MDASH	= '—'; // &mdash; or &#x2014;
-	public const TRADE	= '™'; // &trade;
-	public const REG	= '®'; // &reg;
-	public const COPY	= '©'; // &copy;
+	public const SHY	  = "\xC2\xAD";	// &shy;
+	public const ELLIPSIS = '…';		// &hellip;
+	public const LDQUO	  = '“';		// &ldquo; or &#8220;
+	public const RDQUO	  = '”';		// &rdquo; or &#8221;
+	public const BDQUO	  = '„';		// &bdquo; or &#8222;
+	public const LSQUO	  = '‘';		// &lsquo;
+	public const RSQUO	  = '’';		// &rsquo;
+	public const SBQUO	  = '‚';		// &sbquo;
+	public const LAQUO	  = '«';		// &laquo;
+	public const RAQUO	  = '»';		// &raquo;
+	public const LSAQUO   = '‹';		// &lsaquo;
+	public const RSAQUO   = '›';		// &rsaquo;
+	public const PRIME	  = '″';		// &Prime;
+	public const SPRIME   = '′';		// &prime;
+	public const TIMES	  = '×';		// &times;
+	public const NDASH	  = '–';		// &ndash; or &#x2013;
+	public const MDASH	  = '—';		// &mdash; or &#x2014;
+	public const TRADE	  = '™';		// &trade;
+	public const REG	  = '®';		// &reg;
+	public const COPY	  = '©';		// &copy;
 
 	protected $dopening;
 	protected $dclosing;
@@ -60,13 +62,19 @@ class fixer
 		}
 
 		$pattern = [
-			'@([a-z0-9])\'([a-z])@im',			// Apostrophe
-			'@(^|\s|\>|\()"([^"^\<]+)"@im',		// Double Quotes
-			'@(^|\s|\>|\()\'([^\'^\<]+)\'@im',	// Single Quotes
-			'@([^\d\s]+)[' . self::ALL_SPACES . ']*(,)[' . self::ALL_SPACES . ']*@mu', // No space before comma (,)
+			'@(\d+\°)[' . self::ALL_SPACES . ']{0,1}(\d+)\'[' . self::ALL_SPACES . ']{0,1}((\d{1,2})|(\d{1,2}[.,]\d+))"@im',	// GPS Koordinaten ddd mm ss.ss
+			'@(\d+\°)[' . self::ALL_SPACES . ']{0,1}((\d{1,2})|(\d{1,2}[.,]\d+))\'@im',	// GPS Koordinaten ddd mm.mmm
+			'@(\d+)\'[' . self::ALL_SPACES . ']{0,1}((\d{1,2})|(\d{1,2}[.,]\d+))"@im',	// Dimension in inches
+			'@([a-z0-9])\'([a-z])@im',													// Apostrophe
+			'@(^|\s|\>|\()"([^"^\<]+)"@im',												// Double Quotes
+			'@(^|\s|\>|\()\'([^\'^\<]+)\'@im',											// Single Quotes
+			'@([^\d\s]+)[' . self::ALL_SPACES . ']*(,)[' . self::ALL_SPACES . ']*@mu',	// No space before comma (,)
 		];
 
 		$replacement = [
+			'$1' . self::NO_BREAK_THIN_SPACE . '$2' . self::SPRIME . self::NO_BREAK_THIN_SPACE . '$3' . self::PRIME,
+			'$1' . self::NO_BREAK_THIN_SPACE . '$2' . self::SPRIME,
+			'$1' . self::SPRIME . self::NO_BREAK_THIN_SPACE . '$2' . self::PRIME,
 			'$1' . self::RSQUO . '$2',
 			'$1' . $this->dopening . $this->dopeningSuffix . '$2' . $this->dclosingPrefix . $this->dclosing,
 			'$1' . $this->sopening . $this->sopeningSuffix . '$2' . $this->sclosingPrefix . $this->sclosing,

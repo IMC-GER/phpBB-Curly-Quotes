@@ -92,18 +92,20 @@ class main_listener implements EventSubscriberInterface
 	public static function getSubscribedEvents()
 	{
 		return [
-			'core.modify_text_for_display_before' => 'modify_text_for_display_before',
+			'core.modify_text_for_display_before'	 => 'modify_text_for_display', 	// Fix in post
+			'core.modify_format_display_text_before' => 'modify_text_for_display',	// Fix in preview
 		];
 	}
 
 	/**
 	 * Fix the quotes before display in post
+	 * Fix the quotes before display in preview
 	 *
 	 * @param	object	$event	The event object
 	 * @return	null
 	 * @access	public
 	 */
-	public function modify_text_for_display_before($event)
+	public function modify_text_for_display($event)
 	{
 		$post_text = $event['text'];
 

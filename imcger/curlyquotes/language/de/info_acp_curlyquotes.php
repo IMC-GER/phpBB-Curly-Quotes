@@ -43,6 +43,6 @@ $lang = array_merge($lang, [
 	'ACP_CURLYQUOTES_SETTINGS' => 'Einstellungen',
 	'ACP_CURLYQUOTES_SETTING_SAVED' => 'Curly Quotes Einstellungen erfolgreich gespeichert.',
 
-	'IMCGER_REQUIRE_PHPBB'	=> 'Diese Erweiterung benötigt eine phpBB Version gleich oder grösser 3.2.0 und kleiner 4.0.0',
-	'IMCGER_REQUIRE_PHP'	=> 'Diese Erweiterung benötigt eine php Version gleich oder grösser 8.0 und kleiner 8.2.',
+	'IMCGER_REQUIRE_PHPBB' => 'Diese Erweiterung benötigt eine phpBB Version gleich oder grösser %1$s und kleiner %2$s. Deine Version ist %3$s.',
+	'IMCGER_REQUIRE_PHP'   => 'Diese Erweiterung benötigt eine php Version gleich oder grösser %1$s und kleiner %2$s. Deine Version ist %3$s.',
 ]);
