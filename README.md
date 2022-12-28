@@ -10,7 +10,7 @@ Replaces quotation marks with curly quotes.
 
 ## Requirements
 - php 8.0 or higher
-- phpBB 3.2.0 or higher
+- phpBB 3.3.3 or higher
 
 ## Installation
 
@@ -24,6 +24,9 @@ Go to "ACP" > "Extension" > "Curly Quotes Settings" and set the quote style for 
 - Replace remaining quotes with Prime characters
 
 ## Changelog
+
+### v1.1.1 (28-12-2022)
+- Fixed copy paste mistake in ext.php
 
 ### v1.1.0 (26-12-2022)
 - Added suport for coordinates and length specifications ft./in.
