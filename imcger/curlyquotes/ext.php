@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Curly Quotes
  * An extension for the phpBB Forum Software package.
  *
@@ -28,8 +27,8 @@ class ext extends \phpbb\extension\base
 	/** @var min PHP version */
 	protected $php_min_version = '8.0.0';
 
-	/** @var max PHP version (>= query) */
-	protected $php_max_version = '8.3.0';
+	/** @var max PHP version */
+	protected $php_max_version = '8.4.0';
 
 	/**
 	 * Check the minimum and maximum requirements.
@@ -55,7 +54,7 @@ class ext extends \phpbb\extension\base
 		}
 
 		/* php version equal or greater $php_min_version and less $php_max_version */
-		if (version_compare(PHP_VERSION, $this->php_min_version, '<') || version_compare(PHP_VERSION, $this->php_max_version, '>='))
+		if (version_compare(PHP_VERSION, $this->php_min_version, '<') || version_compare(PHP_VERSION, $this->php_max_version, '>'))
 		{
 			$error_message += ['error2' => $language->lang('IMCGER_REQUIRE_PHP', $this->php_min_version, $this->php_max_version, PHP_VERSION),];
 		}

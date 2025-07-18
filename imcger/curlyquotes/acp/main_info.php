@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Curly Quotes
  * An extension for the phpBB Forum Software package.
  *

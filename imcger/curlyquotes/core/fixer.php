@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * This code is part of JoliTypo - a project by JoliCode.
  *
  * Copyright (c) 2013 Damien Alexandre (http://jolicode.com)

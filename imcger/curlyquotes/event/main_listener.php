@@ -1,13 +1,12 @@
 <?php
 /**
-*
-* Implements Curly Quotes in phpBB.
-* An extension for the phpBB Forum Software package.
-*
-* @copyright (c) 2022, Thorsten Ahlers
-* @license GNU General Public License, version 2 (GPL-2.0)
-*
-*/
+ * Curly Quotes
+ * An extension for the phpBB Forum Software package.
+ *
+ * @copyright (c) 2022, Thorsten Ahlers
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
 namespace imcger\curlyquotes\event;
 

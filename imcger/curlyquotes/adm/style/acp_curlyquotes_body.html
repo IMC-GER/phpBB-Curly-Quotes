@@ -1,3 +1,12 @@
+{#
+ * Curly Quotes
+ * An extension for the phpBB Forum Software package.
+ *
+ * @copyright (c) 2022, Thorsten Ahlers
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ #}
+
 {% include 'overall_header.html' %}
 
 <h1>{{ lang('CURLYQUOTES_TITLE') }}</h1>
@@ -10,7 +19,7 @@
 		<dl>
 			<dt><label for="imcger_collapsequote_visible_lines">{{ lang('CURLYQUOTES_LANGSET') }} {{ lang('COLON') }}</label><br><span>{{ lang('CURLYQUOTES_LANGSET_DESC') }}</span></dt>
 			<dd class="imcger_langset">
-				<input name="lang_name" type="text" value="" size="8" maxlength="8" />
+				<input name="lang_name" type="text" value="" size="8" maxlength="8">
 				<select name="double_quote">
 					<option value="1">“…”</option>
 					<option value="2">”…”</option>
@@ -29,19 +38,19 @@
 				</select>
 			</dd>
 		</dl>
-		<input id="imcger_curlyquotes_lang_settings" name="imcger_curlyquotes_lang_settings" type="text" value="{{ IMCGER_CURLYQUOTES_LANG_SETTINGS }}" size="25" hidden/>
+		<input id="imcger_curlyquotes_lang_settings" name="imcger_curlyquotes_lang_settings" type="text" value="{{ IMCGER_CURLYQUOTES_LANG_SETTINGS }}" size="25" hidden>
 	</fieldset>
 	<fieldset>
 		<legend>{{ lang('CURLYQUOTES_SETTINGS') }}</legend>
 		<dl>
 			<dt><label for="imcger_curlyquotes_sets_prime">{{ lang('CURLYQUOTES_PRIME') }} {{ lang('COLON') }}</label><br><span>{{ lang('CURLYQUOTES_PRIME_DESC') }}</span></dt>
 			<dd>
-				<label><input type="radio" class="radio" id="imcger_curlyquotes_sets_prime" name="imcger_curlyquotes_sets_prime" value='1'{% if IMCGER_CURLYQUOTES_SETS_PRIME %} checked="checked"{% endif %} /> {{ lang('YES') }}</label>
-				<label><input type="radio" class="radio" name="imcger_curlyquotes_sets_prime" value='0'{% if not IMCGER_CURLYQUOTES_SETS_PRIME %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
+				<label><input type="radio" class="radio" id="imcger_curlyquotes_sets_prime" name="imcger_curlyquotes_sets_prime" value='1'{% if IMCGER_CURLYQUOTES_SETS_PRIME %} checked{% endif %}> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="imcger_curlyquotes_sets_prime" value='0'{% if not IMCGER_CURLYQUOTES_SETS_PRIME %} checked{% endif %}> {{ lang('NO') }}</label>
 			</dd>
 		</dl>
 	</fieldset>	<fieldset class="submit-buttons">
-		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />
+		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}">
 		{S_FORM_TOKEN}
 	</fieldset>
 </form>
@@ -52,15 +61,15 @@ const inst_lang = "{{ IMCGER_CURLYQUOTES_INSTALL_LANG|e('js') }}";
 function initForm() {
 	let install_lang = inst_lang.split(";");
 	let i, j, imcger_langset, clone;
-	
+
 	// Create fields for installed languages
 	for (i = 0;  i < install_lang.length; i++) {
-		imcger_langset = document.getElementsByClassName("imcger_langset");
-		let lang = install_lang[i].split(",");
-		let lang_name = "<span>" + lang[1] + "</span><br>";
-		
+		imcger_langset  = document.getElementsByClassName("imcger_langset");
+		let lang		= install_lang[i].split(",");
+		let lang_name	= "<span>" + lang[1] + "</span><br>";
+
 		clone = addLang("beforebegin");
-		
+
 		clone.children[0].value = lang[0].split("_")[0]; // Separate because of format de_x_sie
 		clone.children[0].setAttribute("readonly", "true");
 		clone.insertAdjacentHTML("afterbegin", lang_name);
@@ -69,6 +78,7 @@ function initForm() {
 
 	// Set language settings
 	let lang_settings = document.getElementById("imcger_curlyquotes_lang_settings").value.split(";");
+
 	for (i = 0;  i < lang_settings.length; i++) {
 		let lang_set = lang_settings[i].split(",");
 		// Set language settings for installed languages
@@ -78,12 +88,12 @@ function initForm() {
 					document.getElementsByClassName("imcger_langset")[j].children[3].value = lang_set[1];
 					document.getElementsByClassName("imcger_langset")[j].children[4].value = lang_set[2];
 				}
-			}		
+			}
 		}
 		// Create and set fields for supplementary language settings
 		else {
 			clone = addLang("beforebegin");
-			
+
 			clone.children[0].value = lang_set[0];
 			clone.children[1].value = lang_set[1];
 			clone.children[2].value = lang_set[2];
@@ -92,31 +102,31 @@ function initForm() {
 }
 
 function addLang(insert_pos) {
-	let imcger_langset = document.getElementsByClassName("imcger_langset");
-	let clone = imcger_langset[imcger_langset.length-1].cloneNode(true);
+	let imcger_langset		 = document.getElementsByClassName("imcger_langset");
+	let clone				 = imcger_langset[imcger_langset.length-1].cloneNode(true);
 	let imcger_langsetlength = imcger_langset.length;
-	
+
 	// Create new element for language settings
 	imcger_langset[imcger_langsetlength-1].insertAdjacentElement(insert_pos, clone);
-	
+
 	return clone;
 }
 
 function setLangSetting() {
-	let langset = document.getElementsByClassName("imcger_langset");
-	let i
 	let lang_settings = "";
-	let lang_name = document.getElementsByName("lang_name");
-	let double_quote = document.getElementsByName("double_quote");
-	let single_quote = document.getElementsByName("single_quote");
-	
+	let langset		  = document.getElementsByClassName("imcger_langset");
+	let lang_name	  = document.getElementsByName("lang_name");
+	let double_quote  = document.getElementsByName("double_quote");
+	let single_quote  = document.getElementsByName("single_quote");
+	let i;
+
 	// Read form fields and write them into variable
 	for (i = 0;  i < langset.length; i++) {
 		if (lang_name[i].value.length >= 2) {
 			lang_settings = lang_settings + lang_name[i].value.trim() + "," + double_quote[i].value + "," + single_quote[i].value + ";";
 		}
 	}
-	
+
 	// Write language settings to input element
 	document.getElementById("imcger_curlyquotes_lang_settings").value = lang_settings;
 }

@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Curly Quotes
  * An extension for the phpBB Forum Software package.
  *
@@ -77,7 +76,7 @@ class admin_controller
 		{
 			if (!check_form_key('imcger/curlyquotes'))
 			{
-				trigger_error('FORM_INVALID' . adm_back_link($this->u_action), E_USER_WARNING);
+				trigger_error($this->language->lang('FORM_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
 			}
 
 			/* Store the variable to the db */
